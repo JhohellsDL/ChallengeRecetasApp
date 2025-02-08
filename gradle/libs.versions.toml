@@ -16,8 +16,11 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.09.00"
 loggingInterceptor = "4.11.0"
+mapsCompose = "4.1.1"
 navigationCompose = "2.8.5"
 datastorePreferences = "1.1.1"
+playServicesLocation = "21.3.0"
+playServicesMaps = "19.0.0"
 retrofit = "2.9.0"
 roomVersion = "2.6.1"
 runtimeLivedata = "1.7.6"
@@ -55,6 +58,9 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 [plugins]
