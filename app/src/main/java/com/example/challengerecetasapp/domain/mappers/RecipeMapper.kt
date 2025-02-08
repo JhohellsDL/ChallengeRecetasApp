@@ -38,7 +38,10 @@ fun RecipeResponse.toRecipe(): Recipe {
         difficulty = difficulty,
         imageUrl = imageUrl,
         isFavorite = isFavorite,
-        categoryCode = categoryCode
+        categoryCode = categoryCode,
+        latitude = latitude,
+        longitude = longitude,
+        createdAt = createdAt
     )
 }
 

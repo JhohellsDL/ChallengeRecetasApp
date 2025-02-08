@@ -16,5 +16,8 @@ data class Recipe(
     val difficulty: Int = 0,
     val imageUrl: String = EMPTY,
     val isFavorite: Boolean = false,
-    val categoryCode: String = EMPTY
+    val categoryCode: String = EMPTY,
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0,
+    val createdAt: String = EMPTY
 )
