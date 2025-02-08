@@ -19,8 +19,10 @@ import com.example.challengerecetasapp.ui.components.RecipesNavigationBar
 import com.example.challengerecetasapp.ui.detail.DetailScreen
 import com.example.challengerecetasapp.ui.favorites.FavoritesScreen
 import com.example.challengerecetasapp.ui.home.HomeScreen
+import com.example.challengerecetasapp.ui.map.MapScreen
 import com.example.challengerecetasapp.ui.onboarding.OnboardingScreen
 import com.example.challengerecetasapp.ui.splash.SplashScreen
+import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun RecipesNavHost(
@@ -68,6 +70,17 @@ fun RecipesNavHost(
                     recipeId = recipeId,
                     isFavorite = isFavorite
                 )
+            }
+            composable(
+                RecipeRoute.Map.route,
+                arguments = listOf(
+                    navArgument("lat") { type = NavType.FloatType },
+                    navArgument("lng") { type = NavType.FloatType }
+                )
+            ) {
+                val lat = it.arguments?.getFloat("lat") ?: 0f
+                val lng = it.arguments?.getFloat("lng") ?: 0f
+                MapScreen(navController, LatLng(lat.toDouble(), lng.toDouble()))
             }
         }
     }

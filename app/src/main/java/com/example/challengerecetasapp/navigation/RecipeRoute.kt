@@ -8,4 +8,7 @@ sealed class RecipeRoute(val route: String) {
     object Detail : RecipeRoute("detail/{recipeId}/{isFavorite}") {
         fun createRoute(recipeId: Int, isFavorite: Boolean) = "detail/$recipeId/$isFavorite"
     }
+    object Map : RecipeRoute("map/{lat}/{lng}") {
+        fun createRoute(lat: Double, lng: Double) = "map/$lat/$lng"
+    }
 }

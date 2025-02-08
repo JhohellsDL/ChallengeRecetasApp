@@ -3,16 +3,17 @@ package com.example.challengerecetasapp.domain.models
 data class CategoryRecipe(
     val id: Int,
     val name: String,
-    val type: CategoryType
+    val type: CategoryType,
+    val nameFilter: String
 ) {
     companion object {
         val categories = listOf(
-            CategoryRecipe(0, "All", CategoryType.All),
-            CategoryRecipe(1, "Breakfast", CategoryType.Breakfast),
-            CategoryRecipe(2, "Lunch", CategoryType.Lunch),
-            CategoryRecipe(3, "Dinner", CategoryType.Dinner),
-            CategoryRecipe(4, "Dessert", CategoryType.Dessert),
-            CategoryRecipe(5, "Drinks", CategoryType.Drinks)
+            CategoryRecipe(0, "All", CategoryType.All, "Todos"),
+            CategoryRecipe(1, "Breakfast", CategoryType.Breakfast, "Desayuno"),
+            CategoryRecipe(2, "Lunch", CategoryType.Lunch, "Almuerzo"),
+            CategoryRecipe(3, "Dinner", CategoryType.Dinner, "Cena"),
+            CategoryRecipe(4, "Dessert", CategoryType.Dessert, "Postre"),
+            CategoryRecipe(5, "Drinks", CategoryType.Drinks, "Bebidas")
         )
     }
 }
