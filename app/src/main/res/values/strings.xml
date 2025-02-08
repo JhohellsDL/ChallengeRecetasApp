@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ChallengeRecetasApp</string>
+    <string name="hi">Hola!</string>
+    <string name="subtitle_home">Que deseas cocinar hoy?</string>
+    <string name="favorite_description">Favoritos</string>
+    <string name="image_recipe_description">Imagen de la receta</string>
+    <string name="title_card_current">Menu del día</string>
+    <string name="time_label">%1$s min</string>
+    <string name="title_categories">Categorias</string>
+</resources>
