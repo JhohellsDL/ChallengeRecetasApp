@@ -301,7 +301,7 @@ private fun CardCategory(
                     )
                 }
                 Text(
-                    text = category.name,
+                    text = category.nameFilter,
                     style = Typography.titleMedium,
                     color = colorText,
                     modifier = Modifier

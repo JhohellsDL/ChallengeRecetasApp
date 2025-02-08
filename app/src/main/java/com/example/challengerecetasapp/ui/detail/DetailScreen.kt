@@ -2,6 +2,7 @@ package com.example.challengerecetasapp.ui.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,9 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
-import com.example.challengerecetasapp.R
 import com.example.challengerecetasapp.domain.models.Recipe
+import com.example.challengerecetasapp.domain.repositories.getImageById
 import com.example.challengerecetasapp.ui.components.RecipeTopAppBar
 import org.koin.androidx.compose.koinViewModel
 
@@ -58,11 +62,22 @@ fun DetailScreen(
 @Composable
 fun RecipeContent(recipe: Recipe, navController: NavHostController) {
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             RecipeTopAppBar(
                 title = recipe.title,
                 onBack = { navController.popBackStack() }
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                modifier = Modifier.padding(16.dp),
+                onClick = {
+                    navController.navigate("map/${recipe.latitude}/${recipe.longitude}")
+                }
+            ) {
+                Icon(Icons.Default.LocationOn, contentDescription = "Ver en el mapa")
+            }
         }
     ) { innerPadding ->
         Column(
@@ -71,13 +86,8 @@ fun RecipeContent(recipe: Recipe, navController: NavHostController) {
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
-            val painter = if (recipe.imageUrl.isNotEmpty()) {
-                rememberAsyncImagePainter(recipe.imageUrl)
-            } else {
-                painterResource(id = R.drawable.ic_launcher_background)
-            }
             Image(
-                painter = painter,
+                painter = painterResource(id = getImageById(recipe.id)),
                 contentDescription = "Imagen de la receta",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -87,6 +97,7 @@ fun RecipeContent(recipe: Recipe, navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            Row { Text("Origen: ${recipe.createdAt}", modifier = Modifier.padding(start = 16.dp)) }
             Text(
                 text = "Descripción:",
                 modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
