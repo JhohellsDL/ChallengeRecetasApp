@@ -22,4 +22,12 @@ class AppNavigatorImpl : AppNavigator {
     ) {
         navController.navigate(RecipeRoute.Detail.createRoute(recipeId, isFavorite))
     }
+
+    override fun navigateToMap(
+        navController: NavController,
+        lat: Double,
+        lng: Double
+    ) {
+        navController.navigate(RecipeRoute.Map.createRoute(lat, lng))
+    }
 }
