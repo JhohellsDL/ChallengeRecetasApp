@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.challengerecetasapp.domain.models.Recipe
 import com.example.challengerecetasapp.domain.usecases.GetRecipesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -13,13 +14,13 @@ class RecipeViewModel(
 ): ViewModel() {
 
     private var _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
-    val recipes = _recipes.asStateFlow()
+    val recipes: StateFlow<List<Recipe>> = _recipes.asStateFlow()
 
     init {
         loadRecipes()
     }
 
-    private fun loadRecipes() {
+    fun loadRecipes() {
         viewModelScope.launch {
             val recipes = getRecipesUseCase.invoke()
             _recipes.value = recipes
