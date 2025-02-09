@@ -21,13 +21,17 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,6 +54,7 @@ import com.example.challengerecetasapp.domain.models.Recipe
 import com.example.challengerecetasapp.domain.models.getRecipeLevel
 import com.example.challengerecetasapp.domain.repositories.getImageById
 import com.example.challengerecetasapp.ui.components.RecipeItem
+import com.example.challengerecetasapp.ui.components.SearchTextField
 import com.example.challengerecetasapp.ui.theme.DarkBackground
 import com.example.challengerecetasapp.ui.theme.DarkSurface
 import com.example.challengerecetasapp.ui.theme.EasyRecipesTheme
@@ -119,7 +124,8 @@ private fun CardCurrentHome(
                     modifier = Modifier
                         .padding(4.dp)
                         .align(Alignment.TopEnd),
-                    onClick = onRefresh ) {
+                    onClick = onRefresh
+                ) {
                     Icon(
                         modifier = Modifier.size(20.dp),
                         imageVector = Icons.Default.Refresh,
@@ -318,8 +324,10 @@ fun HomeScreenContent(
     recipes: List<Recipe>,
     favorites: Set<Int>,
     randomRecipe: Recipe?,
+    searchQuery: String,
     onFavoriteClick: (Int) -> Unit,
     navigatorClick: (Int) -> Unit,
+    onSearchQueryRecipe: (String) -> Unit,
     onRandomClick: () -> Unit
 ) {
     var selectedCategory by remember { mutableStateOf<CategoryRecipe?>(CategoryRecipe.categories.first()) }
@@ -333,6 +341,13 @@ fun HomeScreenContent(
         CardCurrentHome(
             recipe = randomRecipe ?: Recipe(),
             onRefresh = { onRandomClick() }
+        )
+        SearchTextField(
+            searchQuery = searchQuery,
+            onSearchQueryChange = onSearchQueryRecipe,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         )
         HomeListCategories(
             selectCategoryRecipe = selectedCategory,
@@ -361,7 +376,6 @@ fun HomeScreenContent(
         }
     }
 }
-
 
 @Preview(
     name = "Dark Mode",
@@ -475,8 +489,10 @@ fun HomeScreenPreview() {
                 imageUrl = "https://via.placeholder.com/150"
             ),
             favorites = setOf(1, 3),
+            searchQuery = "",
             onFavoriteClick = { },
             navigatorClick = { },
+            onSearchQueryRecipe = { },
             onRandomClick = { }
         )
     }
