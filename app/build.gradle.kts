@@ -7,10 +7,10 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
 }
-
-val secretsPropertiesFile = rootProject.file("secrets.properties")
-val secretsProperties = Properties()
-secretsProperties.load(FileInputStream(secretsPropertiesFile))
+val secretsPropertiesFile = file("../secrets.properties")
+val secretsProperties = Properties().apply {
+    load(secretsPropertiesFile.reader())
+}
 
 android {
     namespace = "com.example.challengerecetasapp"
@@ -24,8 +24,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "GOOGLE_MAPS_API_KEY", secretsProperties["GOOGLE_MAPS_API_KEY"] as String)
-        manifestPlaceholders["googleMapsApiKey"] = secretsProperties["GOOGLE_MAPS_API_KEY"] as String
+        buildConfigField("String", "GOOGLE_MAPS_API_KEY", "${secretsProperties["GOOGLE_MAPS_API_KEY"] ?: ""}")
+        manifestPlaceholders["googleMapsApiKey"] = secretsProperties["GOOGLE_MAPS_API_KEY"] ?: ""
     }
 
     buildTypes {
