@@ -18,9 +18,10 @@ fun HomeScreen(
     navigator: AppNavigator = koinInject()
 ) {
 
-    val recipes: List<Recipe> by homeViewModel.recipes.collectAsState()
+    val recipes: List<Recipe> by homeViewModel.filteredRecipes.collectAsState()
     val favorites by homeViewModel.favorites.collectAsState()
     val randomRecipe by homeViewModel.randomRecipe.observeAsState()
+    val searchQuery by homeViewModel.searchQuery.collectAsState()
 
     fun extracted(recipeId: Int) {
         navigator.navigateToDetail(navController, recipeId, true)
@@ -38,6 +39,8 @@ fun HomeScreen(
         onFavoriteClick = homeViewModel::toggleFavorite,
         navigatorClick = ::extracted,
         onRandomClick = { homeViewModel.randomRecipe(recipes) },
-        randomRecipe = randomRecipe
+        randomRecipe = randomRecipe,
+        searchQuery = searchQuery,
+        onSearchQueryRecipe = homeViewModel::updateSearchQuery
     )
 }
